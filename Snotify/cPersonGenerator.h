@@ -3,9 +3,80 @@
 
 #include <string>
 #include "cPerson.h"
+#include <iostream>
 
-class cPersonGenerator
-{
+class VectorString {
+private:
+	std::string* arr;
+	int capacity;
+	int current;
+
+public:
+	VectorString() {
+		arr = new std::string[1];
+		capacity = 1;
+		current = 0;
+	};
+
+	~VectorString() {
+		delete[] arr;
+	};
+
+	void pushBack(std::string data) {
+		if (current == capacity) {
+			std::string* temp = new std::string[2 * capacity];
+
+			for (int i = 0; i < capacity; i++) {
+				temp[i] = arr[i];
+			}
+
+			delete[] arr;
+			capacity *= 2;
+			arr = temp;
+		}
+
+		arr[current] = data;
+		current++;
+	}
+
+	//void push(std::string data, int index)
+	//{
+	//	if (index == capacity)
+	//		pushBack(data);
+	//	else
+	//		arr[index] = data;
+	//}
+
+	std::string get(int index) {
+		if (index < current)
+			return arr[index];
+	}
+
+	void pop() { current--; }
+
+	int size() { return current; }
+
+	int getcapacity() { return capacity; }
+
+	void print() {
+		for (int i = 0; i < current; i++) {
+			std::cout << arr[i] << " ";
+		}
+		std::cout << std::endl;
+	}
+};
+
+class cPersonGenerator {
+private:
+	VectorString* vNames;
+	VectorString* vGender;
+	VectorString* vSurnames;
+
+	VectorString* vStreetName;
+	VectorString* vStreetType;
+	VectorString* vStreetDirection;
+
+	std::string errorString;
 public:
 	cPersonGenerator();
 	~cPersonGenerator();
@@ -30,6 +101,8 @@ public:
 		std::string surnameFile,
 		std::string streetNameFile,
 		std::string& errorString);
+
+	VectorString* readCSVFile(std::string filePath, int tokenId);
 
 	unsigned int getNumberOfNamesLoaded(void);
 	unsigned int getNumberOfSurnamesLoaded(void);

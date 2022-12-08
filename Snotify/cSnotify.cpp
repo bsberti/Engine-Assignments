@@ -1,9 +1,16 @@
 #include "cSnotify.h"
 
 
+cSnotify::cSnotify() {
+
+}
+
+cSnotify::~cSnotify() {
+
+}
+
 // This returns a COPY of the users library, in the form of a regular dynamic array.
-bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary);
-{
+bool cSnotify::GetUsersSongLibrary(unsigned int snotifyUserID, cSong*& pLibraryArray, unsigned int& sizeOfLibary) {
 	// The caller would do something like this (assume the user ID = 28472382)
 	//
 	//	cSong* pTheSongs = 0;

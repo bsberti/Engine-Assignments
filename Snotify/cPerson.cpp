@@ -6,7 +6,7 @@
 cPerson::cPerson()
 {
 	// In here, set the default information
-	this->gender = cPerson::RATHER_NOT_SAY_UNKNOWN;
+	this->gender = RATHER_NOT_SAY_UNKNOWN;
 	this->streetNumber = 0;
 	this->age = -1;
 	this->SIN = 0;
@@ -32,16 +32,16 @@ std::string cPerson::getGenderAsString(void)
 {
 	switch (this->gender)
 	{
-	case cPerson::MALE:
+	case MALE:
 		return "MALE";
 		break;
-	case cPerson::FEMALE:
+	case FEMALE:
 		return "FEMALE";
 		break;
-	case cPerson::NON_BINARY:
+	case NON_BINARY:
 		return "NON_BINARY";
 		break;
-	case cPerson::RATHER_NOT_SAY_UNKNOWN:
+	case RATHER_NOT_SAY_UNKNOWN:
 		return "RATHER_NOT_SAY_UNKNOWN";
 		break;
 //	default:
@@ -51,4 +51,8 @@ std::string cPerson::getGenderAsString(void)
 	// This should never happen
 //	return "RATHER_NOT_SAY_UNKNOWN";
 	return "OMG! CALL THE DEV TEAM!! SOMEONE SCREWED UP!!!";
+}
+
+unsigned int cPerson::getSnotifyUniqueUserID(void) {
+	return 0;
 }

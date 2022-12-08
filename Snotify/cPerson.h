@@ -7,8 +7,17 @@
 
 #include <string>
 
-class cPerson
+// enum inside the class "tightly coupled"
+// now it's not :)
+enum eGenderType
 {
+	MALE = 0,
+	FEMALE = 1,
+	NON_BINARY = 2,
+	RATHER_NOT_SAY_UNKNOWN = 3
+};
+
+class cPerson {
 public:
 	cPerson();		// constructor (c'tor)
 	// Note: Think if you want this virtual or not...?
@@ -20,15 +29,6 @@ public:
 	std::string middle;
 	std::string last;
 
-
-	// enum inside the class "tightly coupled"
-	enum eGenderType
-	{
-		MALE = 0,
-		FEMALE,
-		NON_BINARY,
-		RATHER_NOT_SAY_UNKNOWN
-	};
 
 	eGenderType gender;
 	std::string getGenderAsString(void);
