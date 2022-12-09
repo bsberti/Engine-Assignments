@@ -67,12 +67,12 @@ cPerson* cPersonGenerator::generateRandomPerson(void) {
 	newPerson->streetType = vStreetType->get(streetId);
 	newPerson->streetDirection = vStreetDirection->get(streetId);
 
-	std::string SIN;
-	int length = 9;
+	int SIN = 0;
+	int length = 999999999;
 
-	while (SIN.size() < (length - 1)) {
-		SIN += rand() % length;
-	}
+	SIN = (rand() % length) + 100000000;
+
+	newPerson->SIN = SIN;
 
 	return newPerson;
 }

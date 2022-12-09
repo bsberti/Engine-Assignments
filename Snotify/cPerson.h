@@ -29,7 +29,6 @@ public:
 	std::string middle;
 	std::string last;
 
-
 	eGenderType gender;
 	std::string getGenderAsString(void);
 
@@ -52,7 +51,8 @@ public:
 	std::string city;
 	std::string province;
 	char postalCode[6];		// Canadian postal codes are 6 characters
-							// 
+	
+	bool deleted;
 
 	unsigned int SIN;	// = 0		"Social Insurance Number"  
 	//unsigned int SIN = 0;		// C++ 11

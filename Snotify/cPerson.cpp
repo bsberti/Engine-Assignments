@@ -11,6 +11,8 @@ cPerson::cPerson()
 	this->age = -1;
 	this->SIN = 0;
 
+	this->deleted = false;
+
 	// Generate unique Snotify ID
 	this->m_Snotify_UniqueUserID = cPerson::m_NEXT_Snotify_UniqueUSerID;
 	// Increment for next created user by a small random amount 
@@ -54,5 +56,5 @@ std::string cPerson::getGenderAsString(void)
 }
 
 unsigned int cPerson::getSnotifyUniqueUserID(void) {
-	return 0;
+	return m_Snotify_UniqueUserID;
 }

@@ -49,18 +49,22 @@ public:
 		}
 	}
 
+	bool updateSong(cSong* newData) {
+		for (int i = 0; i < capacity; i++) {
+			if (newData->getUniqueID() <= arr[i].getUniqueID()) {
+				arr[i] = (*newData);
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	void pop() { current--; }
 
 	int size() { return current; }
 
 	int getcapacity() { return capacity; }
-
-	void print() {
-		//for (int i = 0; i < current; i++) {
-		//	std::cout << arr[i] << " ";
-		//}
-		//std::cout << std::endl;
-	}
 };
 
 class cMusicGenerator {

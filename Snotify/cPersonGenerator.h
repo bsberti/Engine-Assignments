@@ -39,14 +39,6 @@ public:
 		current++;
 	}
 
-	//void push(std::string data, int index)
-	//{
-	//	if (index == capacity)
-	//		pushBack(data);
-	//	else
-	//		arr[index] = data;
-	//}
-
 	std::string get(int index) {
 		if (index < current)
 			return arr[index];

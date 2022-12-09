@@ -12,6 +12,7 @@ public:
 	{
 		this->rating = 0;
 		this->numberOfTimesPlayed = 0;
+		this->deleted = false;
 	}
 	std::string name;
 	std::string artist;
@@ -24,6 +25,8 @@ public:
 	// The cPerson has a common method for generating unique IDs, if you 
 	//	want to use that. 
 	unsigned int getUniqueID(void) { return this->uniqueID; }
+
+	bool deleted;
 
 	unsigned int uniqueID;
 }; 
