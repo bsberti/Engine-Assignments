@@ -14,12 +14,12 @@ private:
 
 	int songListUserID;
 public:
-	UserSongList() {
+	UserSongList(unsigned int userId) {
 		userSongList = new cSong[1];
 		songListCapacity = 1;
 		songListCurrent = 0;
 
-		songListUserID = -1;
+		songListUserID = userId;
 	};
 
 	~UserSongList() {
@@ -72,6 +72,48 @@ public:
 	int getcapacity() { return songListCapacity; }
 
 	int getOwnerUserID() { return songListUserID; }
+
+	void getAlphabeticalSortByTittle() {
+		int j = 0;
+		bool swap = true;
+		cSong temp;
+		while (swap)
+		{
+			swap = false;
+			j++;
+			for (int l = 0; l < size() - j; l++)
+			{
+				if (userSongList[l].name > userSongList[l + 1].name)
+				{
+					temp = userSongList[l];
+					userSongList[l] = userSongList[l + 1];
+					userSongList[l + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	}
+
+	void getAlphabeticalSortByArtist() {
+		int j = 0;
+		bool swap = true;
+		cSong temp;
+		while (swap)
+		{
+			swap = false;
+			j++;
+			for (int l = 0; l < size() - j; l++)
+			{
+				if (userSongList[l].artist > userSongList[l + 1].artist)
+				{
+					temp = userSongList[l];
+					userSongList[l] = userSongList[l + 1];
+					userSongList[l + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	}
 };
 
 class UserMap {
@@ -114,7 +156,8 @@ public:
 		}
 
 		mapPerson[personCurrent] = (*person);
-		songLists[personCurrent] = new UserSongList();
+		unsigned int newPersonID = person->getSnotifyUniqueUserID();
+		songLists[personCurrent] = new UserSongList(newPersonID);
 		personCurrent++;
 	}
 
@@ -124,6 +167,15 @@ public:
 				songLists[i]->pushBack(song);
 			}
 		}
+	}
+
+	UserSongList* getUserSongList(unsigned int snotifyUserID) {
+		for (int i = 0; i < personCurrent; i++) {
+			if (songLists[i]->getOwnerUserID() == snotifyUserID) {
+				return songLists[i];
+			}
+		}
+		return nullptr;
 	}
 
 	cSong* getUserList(unsigned int snotifyUserID) {
