@@ -8,6 +8,8 @@ std::string error;
 cPerson* p1;
 cPerson* p2;
 cPerson* p3;
+cPerson* p4;
+cPerson* p5;
 
 const unsigned int MAX_SNOTIFY_SONGS = 100;
 
@@ -17,14 +19,25 @@ int main(int argc, char* argv[]) {
 		p1 = pGenerator.generateRandomPerson();
 		p2 = pGenerator.generateRandomPerson();
 		p3 = pGenerator.generateRandomPerson();
+		p4 = pGenerator.generateRandomPerson();
+		p5 = pGenerator.generateRandomPerson();
+
+		p3->last = "Berti";
+
+		p4->first = "Bruno";
+
+		p5->first = "Bruno";
+		p5->last = "Berti";
 
 		mainSnotify.AddUser(p1, error);
 		mainSnotify.AddUser(p2, error);
 		mainSnotify.AddUser(p3, error);
+		mainSnotify.AddUser(p4, error);
+		mainSnotify.AddUser(p5, error);
 		mainSnotify.AddUser(pGenerator.generateRandomPerson(), error);
 	}
 
-	{ // Update Info
+	{ // Update Info for testing purpose
 		p1->first = "Bruno";
 		p1->middle = "de Souza";
 		p1->last = "Berti";
@@ -218,7 +231,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::cout << "-----------------------------------------------------------------------------" << std::endl;
-	std::cout << "SORTING ~~~~" << newPerson1->first << "~~~~ Song List." << std::endl;
+	std::cout << "SORTING by Title ~~~~" << newPerson1->first << "~~~~ Song List." << std::endl;
 	std::cout << "-----------------------------------------------------------------------------" << std::endl;
 	if (!mainSnotify.GetUsersSongLibraryAscendingByTitle(newPerson1SnotifyID, newPerson1SongList, newPerson1SongListSize)) {
 		std::cout << "Failed to get user song library." << std::endl;
@@ -236,8 +249,135 @@ int main(int argc, char* argv[]) {
 		}
 	}
 	
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "SORTING by Artist ~~~~" << newPerson1->first << "~~~~ Song List." << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.GetUsersSongLibraryAscendingByArtist(newPerson1SnotifyID, newPerson1SongList, newPerson1SongListSize)) {
+		std::cout << "Failed to get user song library." << std::endl;
+	}
+	else {
+		for (int i = 0; i < newPerson1SongListSize; i++) {
+			if (!newPerson1SongList[i].deleted) {
+				std::cout << "- Music: " << newPerson1SongList[i].name <<
+					", Artist: " << newPerson1SongList[i].artist <<
+					std::endl;
+			}
+			else {
+				std::cout << "SongList[" << i << "] from user list was deleted." << std::endl;
+			}
+		}
+	}
 
+	cPerson* allUsers;
+	unsigned int allUsersSize;
 
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "Getting ALL users" << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.GetUsers(allUsers, allUsersSize)) {
+		std::cout << "Error!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < allUsersSize; i++) {
+			if (!allUsers[i].deleted) {
+				std::cout << "- User: " << allUsers[i].first << " " 
+					<< allUsers[i].middle << " " << allUsers[i].last
+					<< std::endl;
+			}
+			else {
+				std::cout << "User[" << i << "] from all users list is deleted." << std::endl;
+			}
+		}
+	}
+
+	cPerson* allUsersByID;
+	unsigned int allUsersSizeByID;
+
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "Getting ALL users SORTED by ID" << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.GetUsersByID(allUsersByID, allUsersSizeByID)) {
+		std::cout << "Error!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < allUsersSizeByID; i++) {
+			if (!allUsersByID[i].deleted) {
+				std::cout << "- User: " << allUsersByID[i].first << " "
+					<< allUsersByID[i].middle << " " << allUsersByID[i].last
+					<< " ID: " << allUsersByID[i].getSnotifyUniqueUserID()
+					<< std::endl;
+			}
+			else {
+				std::cout << "User[" << i << "] from all users list is deleted." << std::endl;
+			}
+		}
+	}
+
+	cPerson* allUsersByFirst;
+	unsigned int allUsersSizeByFirst;
+
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "Getting ALL users by First Name" << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.FindUsersFirstName("Bruno", allUsersByFirst, allUsersSizeByFirst)) {
+		std::cout << "Error!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < allUsersSizeByFirst; i++) {
+			if (!allUsersByFirst[i].deleted) {
+				std::cout << "- User: " << allUsersByFirst[i].first << " "
+					<< allUsersByFirst[i].middle << " " << allUsersByFirst[i].last
+					<< std::endl;
+			}
+			else {
+				std::cout << "User[" << i << "] from all users list is deleted." << std::endl;
+			}
+		}
+	}
+
+	cPerson* allUsersByLast;
+	unsigned int allUsersSizeByLast;
+
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "Getting ALL users by Last Name" << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.FindUsersLastName("Berti", allUsersByLast, allUsersSizeByLast)) {
+		std::cout << "Error!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < allUsersSizeByLast; i++) {
+			if (!allUsersByLast[i].deleted) {
+				std::cout << "- User: " << allUsersByLast[i].first << " "
+					<< allUsersByLast[i].middle << " " << allUsersByLast[i].last
+					<< std::endl;
+			}
+			else {
+				std::cout << "User[" << i << "] from all users list is deleted." << std::endl;
+			}
+		}
+	}
+
+	cPerson* allUsersByFirstLast;
+	unsigned int allUsersSizeByFirstLast;
+
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	std::cout << "Getting ALL users by First and Last Name" << std::endl;
+	std::cout << "-----------------------------------------------------------------------------" << std::endl;
+	if (!mainSnotify.FindUsersFirstLastNames("Bruno", "Berti", allUsersByFirstLast, allUsersSizeByFirstLast)) {
+		std::cout << "Error!" << std::endl;
+	}
+	else {
+		for (int i = 0; i < allUsersSizeByFirstLast; i++) {
+			if (!allUsersByFirstLast[i].deleted) {
+				std::cout << "- User: " << allUsersByFirstLast[i].first << " "
+					<< allUsersByFirstLast[i].middle << " " << allUsersByFirstLast[i].last
+					<< std::endl;
+			}
+			else {
+				std::cout << "User[" << i << "] from all users list is deleted." << std::endl;
+			}
+		}
+	}
 
 	int breakPoint = 1;
 }

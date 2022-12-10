@@ -249,28 +249,31 @@ bool cSnotify::GetUsersSongLibraryAscendingByArtist(unsigned int snotifyUserID, 
 }
 
 bool cSnotify::GetUsers(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-
-	return false;
+	pAllTheUsers = mSnotifyUsers->getAllUsers();
+	sizeOfUserArray = mSnotifyUsers->size();
+	return true;
 }
 
 bool cSnotify::GetUsersByID(cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-
-	return false;
+	mSnotifyUsers->getAllUsersSortedbyID();
+	pAllTheUsers = mSnotifyUsers->getAllUsers();
+	sizeOfUserArray = mSnotifyUsers->size();
+	return true;
 }
 
 bool cSnotify::FindUsersFirstName(std::string firstName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-
-	return false;
+	pAllTheUsers = mSnotifyUsers->getAllUsersFirstName(firstName, sizeOfUserArray);
+	return true;
 }
 
 bool cSnotify::FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-
-	return false;
+	pAllTheUsers = mSnotifyUsers->getAllUsersLastName(lastName, sizeOfUserArray);
+	return true;
 }
 
 bool cSnotify::FindUsersFirstLastNames(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray) {
-
-	return false;
+	pAllTheUsers = mSnotifyUsers->getAllUsersFirstLastName(firstName, lastName, sizeOfUserArray);
+	return true;
 }
 
 cSong* cSnotify::GetSong(unsigned int SnotifyUserID, unsigned int songUniqueID, std::string& errorString) {

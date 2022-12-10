@@ -228,6 +228,73 @@ public:
 	int size() { return personCurrent; }
 
 	int getcapacity() { return personCapacity; }
+
+	cPerson* getAllUsers() { return mapPerson; }
+
+	void getAllUsersSortedbyID() {
+		int j = 0;
+		bool swap = true;
+		cPerson temp;
+		while (swap)
+		{
+			swap = false;
+			j++;
+			for (int l = 0; l < size() - j; l++)
+			{
+				if (mapPerson[l].getSnotifyUniqueUserID() > 
+					mapPerson[l + 1].getSnotifyUniqueUserID())
+				{
+					temp = mapPerson[l];
+					mapPerson[l] = mapPerson[l + 1];
+					mapPerson[l + 1] = temp;
+					swap = true;
+				}
+			}
+		}
+	}
+
+	cPerson* getAllUsersFirstName(std::string firstName, unsigned int& sizeUsers) {
+		cPerson* returnUsers = new cPerson[size()];
+		unsigned int returnUsersCurrent = 0;
+		for (int i = 0; i < size(); i++) {
+			if (mapPerson[i].first == firstName) {
+				returnUsers[returnUsersCurrent] = mapPerson[i];
+				returnUsersCurrent++;
+			}
+		}
+
+		sizeUsers = returnUsersCurrent;
+		return returnUsers;
+	}
+
+	cPerson* getAllUsersLastName(std::string firstName, unsigned int& sizeUsers) {
+		cPerson* returnUsers = new cPerson[size()];
+		unsigned int returnUsersCurrent = 0;
+		for (int i = 0; i < size(); i++) {
+			if (mapPerson[i].last == firstName) {
+				returnUsers[returnUsersCurrent] = mapPerson[i];
+				returnUsersCurrent++;
+			}
+		}
+
+		sizeUsers = returnUsersCurrent;
+		return returnUsers;
+	}
+
+	cPerson* getAllUsersFirstLastName(std::string firstName, std::string lastName, unsigned int& sizeUsers) {
+		cPerson* returnUsers = new cPerson[size()];
+		unsigned int returnUsersCurrent = 0;
+		for (int i = 0; i < size(); i++) {
+			if (mapPerson[i].first == firstName &&
+				mapPerson[i].last == lastName) {
+				returnUsers[returnUsersCurrent] = mapPerson[i];
+				returnUsersCurrent++;
+			}
+		}
+
+		sizeUsers = returnUsersCurrent;
+		return returnUsers;
+	}
 };
 
 class cSnotify {
@@ -304,8 +371,7 @@ public:
 	bool FindUsersFirstName(std::string firstName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
 	bool FindUsersLastName(std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
 	// Sorted ascending by last name THEN first name.
-	bool FindUsersFirstLastNames(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray);
-
+	bool FindUsersFirstLastNames(std::string firstName, std::string lastName, cPerson*& pAllTheUsers, unsigned int& sizeOfUserArray); 
 
 };
 
